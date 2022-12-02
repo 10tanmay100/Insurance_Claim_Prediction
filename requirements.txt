@@ -1,7 +1,10 @@
-cassandra-driver
+cassandra-driver 
 ipykernel
 pandas
 numpy
+pathlib
+scikit-learn
+pyYAML
 
 
 ## Dev Requirements

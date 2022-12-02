@@ -1,0 +1,64 @@
+columns:
+  - policy_tenure: float
+  - age_of_car: float
+  - age_of_policyholder: float
+  - area_cluster: O
+  - population_density: int
+  - make: int
+  - segment: O
+  - model: O
+  - fuel_type: O
+  - max_torque: O
+  - max_power: O
+  - engine_type: O
+  - airbags: int
+  - is_esc: O
+  - is_adjustable_steering: O
+  - is_tpms: O
+  - is_parking_sensors: O
+  - is_parking_camera: O
+  - rear_brakes_type: O
+  - displacement: int
+  - cylinder: int
+  - transmission_type: O
+  - gear_box: int
+  - steering_type: O
+  - turning_radius: float
+  - length: int
+  - width: int
+  - height: int
+  - gross_weight: int
+  - is_front_fog_lights: O
+  - is_rear_window_wiper: O
+  - is_rear_window_washer: O
+  - is_rear_window_defogger: O
+  - is_brake_assist: O
+  - is_power_door_locks: O
+  - is_central_locking: O
+  - is_power_steering: O
+  - is_driver_seat_height_adjustable: O
+  - is_day_night_rear_view_mirror: O
+  - is_ecw: O
+  - is_speed_alert: O
+  - ncap_rating: int
+  - is_claim: int
+
+
+numerical_columns:
+  - policy_tenure
+  - age_of_car
+  - age_of_policyholder
+  - population_density
+  - make
+  - airbags
+  - displacement
+  - cylinder
+  - gear_box
+  - turning_radius
+  - length
+  - width
+  - height
+  - gross_weight
+  - ncap_rating
+  - is_claim
+

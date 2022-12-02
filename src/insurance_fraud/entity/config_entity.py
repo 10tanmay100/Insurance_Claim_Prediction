@@ -1,0 +1,84 @@
+from datetime import datetime
+from src.insurance_fraud.constant import *
+from src.insurance_fraud.logger import logging
+from pathlib import Path
+import os
+
+
+class TrainingPipelineConfig:
+          def __init__(self,timestamp=datetime.now()):
+                    timestamp=datetime.now().strftime("%m_%d_%Y_%M_%S")
+                    self.pipeline_name:str=PIPELINE_NAME
+                    self.artifact_dir:str=os.path.join(ARTIFACT_DIR,timestamp)
+                    self.timestamp:str=timestamp
+
+class DataIngestionConfig:
+          def __init__(self,training_pipeline_config:TrainingPipelineConfig):
+                    #data ingestion directory path
+                    logging.info("Data Ingestion Config has been started!!")
+
+                    self.data_ingestion_dir:Path=os.path.join(training_pipeline_config.artifact_dir,DATA_INGESTION_DIR_NAME)
+
+                    logging.info(f"Data Ingestion directory path defined!! path is {self.data_ingestion_dir}")
+                    #feature store file path defined
+                    self.feature_store_file_path:Path=os.path.join(self.data_ingestion_dir,DATA_INGESTION_FEATURE_STORE_DIR,FILE_NAME)
+
+                    logging.info(f"Feature Store file path defined!! path is {self.feature_store_file_path}")
+                    #training file path defined
+                    self.training_file_path:Path=os.path.join(self.data_ingestion_dir,DATA_INGESTION_INGESTED_DIR,TRAIN_FILE_NAME)
+
+                    logging.info(f"Training file path defined!! path is {self.training_file_path}")
+
+                    #testing file path defined
+                    self.testing_file_path:Path=os.path.join(self.data_ingestion_dir,DATA_INGESTION_INGESTED_DIR,TEST_FILE_NAME)
+
+                    logging.info(f"Testing file path defined!! path is {self.testing_file_path}")
+                    #train test split ratio
+                    self.train_test_split_ratio:float=DATA_INGESTION_TRAIN_TEST_SPLIT_RATIO
+
+                    logging.info(f"Defined train test split.... {self.train_test_split_ratio}")
+                    #random state defined
+                    self.random_state:int=DATA_INGESTION_RANDOM_STATE
+                    
+                    logging.info(f"Defined random state {self.random_state}")
+
+class DataValidationConfig:
+    def __init__(self,training_pipeline_config:TrainingPipelineConfig):
+        #data validation directory path
+        logging.info("Data validation Config has been started!!")
+
+        self.data_validation_dir:Path=os.path.join(training_pipeline_config.artifact_dir,DATA_VALIDATION_DIR_NAME)
+
+        logging.info(f"Data validation directory path defined!! path is {self.data_validation_dir}")
+        #defining valid data directory
+        self.valid_data_directory:Path=os.path.join(self.data_validation_dir,DATA_VALIDATION_VALID_DIR)
+
+        logging.info(f"Data valid data directory path defined!! path is {self.valid_data_directory}")
+        #defining invalid data directory
+        self.invalid_data_directory:Path=os.path.join(self.data_validation_dir,DATA_VALIDATION_INVALID_DIR)
+
+        logging.info(f"Data invalid data directory path defined!! path is {self.invalid_data_directory}")
+        #defining the valid train file path
+        self.valid_train_file_path:Path=os.path.join(self.valid_data_directory,TRAIN_FILE_NAME)
+
+        logging.info(f"Data valid data train path defined!! path is {self.valid_train_file_path}")
+        #defining the invalid train file path
+        self.invalid_train_file_path:Path=os.path.join(self.invalid_data_directory,TRAIN_FILE_NAME)
+
+        logging.info(f"Data invalid data train path defined!! path is {self.invalid_train_file_path}")
+        #defining the valid test file path
+        self.valid_test_file_path:Path=os.path.join(self.valid_data_directory,TEST_FILE_NAME)
+
+        logging.info(f"Data valid data test path defined!! path is {self.valid_test_file_path}")
+        #defining the invalid test file path
+        self.invalid_test_file_path:Path=os.path.join(self.invalid_data_directory,TEST_FILE_NAME)
+
+        logging.info(f"Data invalid data test path defined!! path is {self.invalid_test_file_path}")
+        #defining drift report file path
+        self.drift_report_file_path:Path=os.path.join(self.data_validation_dir,DATA_VALIDATION_DRIFT_REPORT_DIR,DATA_VALIDATION_DRIFT_REPORT_FILE_NAME)
+
+        logging.info(f"Data drift report file path defined!! path is {self.drift_report_file_path}")
+
+
+
+
