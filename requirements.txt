@@ -1,6 +1,6 @@
 cassandra-driver
 ipykernel
--e .
+
 
 ## Dev Requirements
 pytest>=7.1.3

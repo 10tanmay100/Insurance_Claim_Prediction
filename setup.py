@@ -8,7 +8,7 @@ def get_install_requirements_file()->List[str]:
                     installing all the mentioned requirements
           '''
           with open("requirements.txt","r") as requirements_file:
-                    return requirements_file.readlines().remove("-e .")
+                    return requirements_file.readlines()
 
 
 
