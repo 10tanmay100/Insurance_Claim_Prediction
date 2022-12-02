@@ -1,5 +1,7 @@
 cassandra-driver
 ipykernel
+pandas
+numpy
 
 
 ## Dev Requirements
