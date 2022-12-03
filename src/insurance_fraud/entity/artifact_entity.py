@@ -33,3 +33,19 @@ class ClassificationMetricsArtifact:
     precision_Score:float
     recall_Score:float
     roc_auc_Score:float
+
+@dataclass(frozen=True)
+class ModelEvaluationArtifact:
+    is_model_accepted:bool
+    changed_accuracy:float
+    best_model_path:Path
+    trained_model_file_path:Path
+    trained_model_metric_artifact:ClassificationMetricsArtifact
+    best_model_metric_artifact:ClassificationMetricsArtifact
+    preprocessor_artifact:Path
+
+@dataclass(frozen=True)
+class ModelPusherArtifact:
+    saved_model_path:Path
+    model_file_path:Path
+    preprocessor_file_path:Path

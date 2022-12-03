@@ -1,0 +1,15 @@
+<div class="jumbotron">
+          <h1 style='text-align: center'>Insurance Fraud Prediction</h1>
+      </div>
+      <div>
+          <p class="lead">Upload a csv file</p>
+          <form method="POST" enctype="multipart/form-data" action="/">
+              <input type="file" id="myFile" name="filename" accept=".csv">
+              <input type="submit">
+          </form>
+      </div>
+      <div>
+          {{ data }}
+      </div>
+      <div>
+      

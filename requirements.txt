@@ -8,6 +8,11 @@ pyYAML
 imblearn
 dill
 xgboost
+fastapi
+uvicorn
+python-multipart
+flask
+flask-cors
 
 
 

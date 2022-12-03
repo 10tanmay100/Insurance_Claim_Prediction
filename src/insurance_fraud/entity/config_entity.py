@@ -90,13 +90,13 @@ class DataTransformationConfig:
 
         logging.info(f"Data transformation directory path defined!! path is {self.data_transformation_dir}")
         #defining the train file path
-        self.data_transformed_train_dir:Path=os.path.join(self.data_transformation_dir,TRAIN_FILE_NAME.replace('.csv','.npy'))
+        self.data_transformed_train_dir:Path=os.path.join(self.data_transformation_dir,TRAIN_FILE_NAME)
 
-        logging.info(f"Train file path defined in data transformation stage and csv file extension with npy and file and path is -> {self.data_transformed_train_dir}")
+        logging.info(f"Train file path defined in data transformation stage and csv file extension and file and path is -> {self.data_transformed_train_dir}")
         #defining the test file path
-        self.data_transformed_test_dir:Path=os.path.join(self.data_transformation_dir,TEST_FILE_NAME.replace('.csv','.npy'))
+        self.data_transformed_test_dir:Path=os.path.join(self.data_transformation_dir,TEST_FILE_NAME)
 
-        logging.info(f"Test file path defined in data transformation stage and csv file extension with npy and file and path is -> {self.data_transformed_test_dir}")
+        logging.info(f"Test file path defined in data transformation stage and csv file extension and file and path is -> {self.data_transformed_test_dir}")
         #defining the directory to store the transformation pickle file in my system
         self.data_transformation_transformed_obj_dir:Path=os.path.join(self.data_transformation_dir,DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR)
 
@@ -106,11 +106,54 @@ class DataTransformationConfig:
 
 class ModelBuilderConfig:
     def __init__(self,training_pipeline_config:TrainingPipelineConfig):
+
+        logging.info("Model Builder Config has been started!!")
         #defining the root diretory of model building
         self.model_trainer_dir:Path=os.path.join(training_pipeline_config.artifact_dir,MODEL_TRAINER_DIR_NAME)
+
+        logging.info(f"Trained Directory created , {self.model_trainer_dir}")
         #defining the model store path
         self.model_trained_dir:Path=os.path.join(self.model_trainer_dir,MODEL_TRAINER_TRAINED_MODEL_DIR,MODEL_TRAINER_TRAIN_MODEL_NAME)
+
+        logging.info(f"Trained model stored Directory created , {self.model_trained_dir}")
         #defining the model accuracy threshold
         self.model_threshold_accuracy:float=MODEL_TRAINER_EXPECTED_SCORE
+
+        logging.info(f"Threshold accuracy defined {self.model_threshold_accuracy}")
         #defining overfitting threshold
         self.model_over_underfit_thershold_diff:float=OVERFITTING_UNDERFITTING_THRESHOLD
+        logging.info(f"Overfitting threshold defined {self.model_over_underfit_thershold_diff}")
+
+
+class ModelEvaluationConfig:
+    def __init__(self,training_pipeline_config:TrainingPipelineConfig):
+
+        logging.info("Model Evaluator Config has been started!!")
+        #Defining the root directory for model evaluation
+        self.model_evaluator_dir=os.path.join(training_pipeline_config.artifact_dir,MODEL_EVALUATION_DIR_NAME)
+
+        logging.info(f"Model evaluation directory defined {self.model_evaluator_dir}")
+        #defining the report file path
+        self.report_file_path=os.path.join(self.model_evaluator_dir,MODEL_EVALUATION_REPORT_FILE)
+
+        logging.info(f"Evaluate model file path defined {self.report_file_path}")
+        #defining the evalutor thereshold if new model crosses that we choose the new one
+        self.model_evaluator_threshold=MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE
+
+        logging.info("Model Evaluator threshold defined..")
+
+class ModelPusherConfig:
+    def __init__(self,training_pipeline_config:TrainingPipelineConfig):
+        logging.info("Model Pusher config has been started")
+        #defining the model pusher root directory
+        self.model_pusher_dir=os.path.join(training_pipeline_config.artifact_dir,MODEL_PUSHER_DIR_NAME)
+
+        logging.info("Model Pusher directory created..")
+        #defining the model pusher folder model file path
+        self.model_pusher_model_file_path=os.path.join(self.model_pusher_dir,MODEL_NAME)
+
+        logging.info("Model Pushiing model file created...")
+        #defining the model pusher in saved model
+        timestamp=round(datetime.now().timestamp())
+        self.saved_model_path=os.path.join(SAVED_MODEL_DIR,str(timestamp),MODEL_NAME)
+        logging.info(f"New Model saved in  {self.saved_model_path}")

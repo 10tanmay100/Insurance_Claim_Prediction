@@ -5,6 +5,8 @@ from src.insurance_fraud.components.data_ingestion import DataIngestion
 from src.insurance_fraud.components.data_validation import DataValidation
 from src.insurance_fraud.components.data_transformation import DataTransformation
 from src.insurance_fraud.components.model_trainer import ModelTrainer
+from src.insurance_fraud.components.model_evaluation import ModelEvaluation
+from src.insurance_fraud.components.model_pusher import ModelPusher
 import sys
 
 
@@ -52,8 +54,27 @@ class TrainPipeline:
                     except Exception as e:
                               raise InsuranceFraudException(e,sys)
 
+          def start_model_evaluation(self,data_transformation_artifact:DataTransformationArtifact,model_trainer_artifact:ModelTrainerArtifact):
+                    try:
+                              logging.info("Starting model evaluation")
+                              self.model_evaluation_config=ModelEvaluationConfig(self.training_pipeline_config)
+                              model_evaluator=ModelEvaluation(model_eval_config=self.model_evaluation_config,data_transformation_artifact=data_transformation_artifact,model_trainer_artifact=model_trainer_artifact)
+                              model_evaluation_artifact=model_evaluator.initiate_model_evaluation()
+                              return model_evaluation_artifact
+                              logging.info("model evaluation successful!!!!!!")
+                    except Exception as e:
+                              raise InsuranceFraudException(e,sys) from e
 
-
+          def start_model_pusher(self,model_eval_artifact:ModelEvaluationArtifact):
+                    try:
+                              logging.info("Starting model pusher")
+                              self.model_pusher_config=ModelPusherConfig(self.training_pipeline_config)
+                              model_pusher=ModelPusher(self.model_pusher_config,model_eval_artifact)
+                              model_pusher_artifact=model_pusher.initiate_model_pusher()
+                              return model_pusher_artifact
+                              logging.info("Model pusher step finished")
+                    except Exception as e:
+                              raise InsuranceFraudException(e,sys)
 
           def run_pipeline(self):
                     try:
@@ -61,7 +82,9 @@ class TrainPipeline:
                               data_validation_artifact=self.start_data_validation(data_ingestion_artifact=data_ingestion_artifact)
                               data_transformation_artifact=self.start_data_transformation(data_validation_artifact)
                               model_trainer_artifact=self.start_model_trainer(data_transformation_artifact)
-                              return model_trainer_artifact
+                              model_evaluator_artifact=self.start_model_evaluation(data_transformation_artifact=data_transformation_artifact,model_trainer_artifact=model_trainer_artifact)
+                              model_pusher_artifact=self.start_model_pusher(model_evaluator_artifact)
+                              return model_pusher_artifact
                     except Exception as e:
                               raise InsuranceFraudException(e,sys) from e
 

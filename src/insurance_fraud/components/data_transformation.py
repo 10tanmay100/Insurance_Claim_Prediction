@@ -105,14 +105,17 @@ class DataTransformation:
                               target_feature_train_df=train_dataframe[TARGET_COLUMN]
                               logging.info(f"Glimpse of target feature data {target_feature_train_df.head()}")
 
-          
+                              print(input_feature_train_df)
+                              
 
                               #getting the preprocessor obj
                               preprocessor_obj=preprocessor.fit(input_feature_train_df)
                               logging.info("Fitting preprocessor on the input feature data!!")
                               save_object(file_path=self.data_tranformation_config.data_transformation_transformed_obj_dir,obj=preprocessor_obj)
                               logging.info(f"Saving the preprocessor object in the path ->> {self.data_tranformation_config.data_transformation_transformed_obj_dir}")
-                              transformed_feature_train_df=preprocessor.transform(input_feature_train_df)
+                              transformed_feature_train_df=pd.DataFrame(preprocessor.transform(input_feature_train_df),columns=input_feature_train_df.columns)
+
+                              print(transformed_feature_train_df)
                               logging.info("Transforming the input train feature......")
                               #testing dataframe
                               logging.info("Applying some preprocessing in the testing data")
@@ -170,7 +173,8 @@ class DataTransformation:
                               logging.info(f"Glimpse of target feature data {target_feature_test_df.head()}")
 
 
-                              transformed_feature_test_df=preprocessor.transform(input_feature_test_df)
+                              transformed_feature_test_df=pd.DataFrame(preprocessor.transform(input_feature_test_df),columns=input_feature_test_df.columns)
+                              print(transformed_feature_test_df)
                               logging.info("Transforming the input test feature......")
 
 
@@ -183,17 +187,21 @@ class DataTransformation:
                               input_feature_test_final,target_feature_test_final=smt.fit_resample(transformed_feature_test_df,target_feature_test_df)
                               logging.info("Fit resample applied on testing data!!")
 
-                              transformed_train_arr=np.c_[input_feature_train_final,np.array(target_feature_train_final)]
+                              # transformed_train_arr=np.c_[input_feature_train_final,np.array(target_feature_train_final)]
+                              transformed_train_df=pd.concat([pd.DataFrame(input_feature_train_final),target_feature_train_final],axis=1)
+                              print(transformed_train_df)
                               logging.info("Concatenating transformed train data...")
                               
-                              transformed_test_arr=np.c_[input_feature_test_final,np.array(target_feature_test_final)]
+                              transformed_test_df=pd.concat([pd.DataFrame(input_feature_test_final),target_feature_test_final],axis=1)
                               logging.info("Concatenating transformed test data...")
-
+                              print(transformed_test_df)
 
                               #saving numpy arrays
-                              save_numpy_array(file_path=self.data_tranformation_config.data_transformed_train_dir,array=transformed_train_arr)
+                              # save_numpy_array(file_path=self.data_tranformation_config.data_transformed_train_dir,array=transformed_train_arr)
+                              transformed_train_df.to_csv(self.data_tranformation_config.data_transformed_train_dir,index=False)
                               logging.info(f"Saving transformed train array in the specified path -> {self.data_tranformation_config.data_transformed_train_dir}")
-                              save_numpy_array(file_path=self.data_tranformation_config.data_transformed_test_dir,array=transformed_test_arr)
+                              # save_numpy_array(file_path=self.data_tranformation_config.data_transformed_test_dir,array=transformed_test_arr)
+                              transformed_test_df.to_csv(self.data_tranformation_config.data_transformed_test_dir,index=False)
                               logging.info(f"Saving transformed test array in the specified path -> {self.data_tranformation_config.data_transformed_test_dir}")
 
                               data_transformation_artifact=DataTransformationArtifact(transformed_object_file_path=self.data_tranformation_config.data_transformation_transformed_obj_dir,transformed_train_file_path=self.data_tranformation_config.data_transformed_train_dir,transformed_test_file_path=self.data_tranformation_config.data_transformed_test_dir)

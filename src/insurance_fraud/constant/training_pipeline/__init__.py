@@ -1,5 +1,7 @@
 import os
 #defining common constant variables for trainig pipeline
+
+SAVED_MODEL_DIR=os.path.join("SAVED_MODEL_DIR")
 TARGET_COLUMN="is_claim"
 PIPELINE_NAME:str="insurance_fraud"
 ARTIFACT_DIR:str="artifact"
