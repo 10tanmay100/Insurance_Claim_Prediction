@@ -81,4 +81,36 @@ class DataValidationConfig:
 
 
 
+class DataTransformationConfig:
+    def __init__(self,training_pipeline_config:TrainingPipelineConfig):
+        #defining the root directory of data transformation
+        logging.info("Data Transformation Config has been started!!")
 
+        self.data_transformation_dir:Path=os.path.join(training_pipeline_config.artifact_dir,DATA_TRANSFORMATION_DIR_NAME)
+
+        logging.info(f"Data transformation directory path defined!! path is {self.data_transformation_dir}")
+        #defining the train file path
+        self.data_transformed_train_dir:Path=os.path.join(self.data_transformation_dir,TRAIN_FILE_NAME.replace('.csv','.npy'))
+
+        logging.info(f"Train file path defined in data transformation stage and csv file extension with npy and file and path is -> {self.data_transformed_train_dir}")
+        #defining the test file path
+        self.data_transformed_test_dir:Path=os.path.join(self.data_transformation_dir,TEST_FILE_NAME.replace('.csv','.npy'))
+
+        logging.info(f"Test file path defined in data transformation stage and csv file extension with npy and file and path is -> {self.data_transformed_test_dir}")
+        #defining the directory to store the transformation pickle file in my system
+        self.data_transformation_transformed_obj_dir:Path=os.path.join(self.data_transformation_dir,DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR)
+
+        logging.info(f"Preprocessor pickle file's path defined and path is -> {self.data_transformation_transformed_obj_dir}")
+
+
+
+class ModelBuilderConfig:
+    def __init__(self,training_pipeline_config:TrainingPipelineConfig):
+        #defining the root diretory of model building
+        self.model_trainer_dir:Path=os.path.join(training_pipeline_config.artifact_dir,MODEL_TRAINER_DIR_NAME)
+        #defining the model store path
+        self.model_trained_dir:Path=os.path.join(self.model_trainer_dir,MODEL_TRAINER_TRAINED_MODEL_DIR,MODEL_TRAINER_TRAIN_MODEL_NAME)
+        #defining the model accuracy threshold
+        self.model_threshold_accuracy:float=MODEL_TRAINER_EXPECTED_SCORE
+        #defining overfitting threshold
+        self.model_over_underfit_thershold_diff:float=OVERFITTING_UNDERFITTING_THRESHOLD

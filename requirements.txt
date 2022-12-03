@@ -5,6 +5,10 @@ numpy
 pathlib
 scikit-learn
 pyYAML
+imblearn
+dill
+xgboost
+
 
 
 ## Dev Requirements

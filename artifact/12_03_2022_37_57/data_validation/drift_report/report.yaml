@@ -1,0 +1,129 @@
+age_of_car:
+  drift_status: false
+  p_value: 0.8445100407146114
+age_of_policyholder:
+  drift_status: false
+  p_value: 0.78684969580941
+airbags:
+  drift_status: true
+  p_value: 0.03168094390514331
+area_cluster:
+  drift_status: true
+  p_value: 0.26092364442540006
+cylinder:
+  drift_status: false
+  p_value: 1.0
+displacement:
+  drift_status: false
+  p_value: 0.9873078391509708
+engine_type:
+  drift_status: true
+  p_value: 0.02749158759329573
+fuel_type:
+  drift_status: false
+  p_value: 0.9999999999982547
+gear_box:
+  drift_status: false
+  p_value: 0.5050676804320074
+gross_weight:
+  drift_status: true
+  p_value: 0.17094984776945887
+height:
+  drift_status: false
+  p_value: 0.707977051850093
+is_adjustable_steering:
+  drift_status: false
+  p_value: 1.0
+is_brake_assist:
+  drift_status: false
+  p_value: 0.940408568498554
+is_central_locking:
+  drift_status: false
+  p_value: 1.0
+is_claim:
+  drift_status: false
+  p_value: 1.0
+is_day_night_rear_view_mirror:
+  drift_status: false
+  p_value: 0.9994517971006881
+is_driver_seat_height_adjustable:
+  drift_status: false
+  p_value: 0.9997412893791816
+is_ecw:
+  drift_status: false
+  p_value: 1.0
+is_esc:
+  drift_status: true
+  p_value: 0.061419368214926884
+is_front_fog_lights:
+  drift_status: false
+  p_value: 0.9990075922033653
+is_parking_camera:
+  drift_status: true
+  p_value: 0.08650887070876878
+is_parking_sensors:
+  drift_status: false
+  p_value: 1.0
+is_power_door_locks:
+  drift_status: false
+  p_value: 1.0
+is_power_steering:
+  drift_status: false
+  p_value: 1.0
+is_rear_window_defogger:
+  drift_status: true
+  p_value: 0.151593517642447
+is_rear_window_washer:
+  drift_status: true
+  p_value: 0.03168094390514331
+is_rear_window_wiper:
+  drift_status: true
+  p_value: 0.03168094390514331
+is_speed_alert:
+  drift_status: false
+  p_value: 1.0
+is_tpms:
+  drift_status: true
+  p_value: 0.4634229151978335
+length:
+  drift_status: true
+  p_value: 0.43391769475099984
+make:
+  drift_status: false
+  p_value: 0.9681197297890765
+max_power:
+  drift_status: true
+  p_value: 0.4634229151978252
+max_torque:
+  drift_status: false
+  p_value: 0.5930362488791845
+model:
+  drift_status: false
+  p_value: 0.6098311178610074
+ncap_rating:
+  drift_status: false
+  p_value: 0.9628983661866405
+policy_tenure:
+  drift_status: false
+  p_value: 0.8205732137732723
+population_density:
+  drift_status: false
+  p_value: 0.7306733964816825
+rear_brakes_type:
+  drift_status: true
+  p_value: 0.4634229151978252
+segment:
+  drift_status: false
+  p_value: 0.5249484290349994
+steering_type:
+  drift_status: false
+  p_value: 0.7678686018237334
+transmission_type:
+  drift_status: true
+  p_value: 0.02749158759329573
+turning_radius:
+  drift_status: true
+  p_value: 0.19253152254777728
+width:
+  drift_status: true
+  p_value: 0.1431496083376883
