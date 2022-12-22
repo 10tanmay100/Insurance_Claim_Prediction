@@ -6,3 +6,4 @@ from src.insurance_fraud.constant.training_pipeline.model_evaluator_constants im
 from src.insurance_fraud.constant.training_pipeline.model_pusher_constants import *
 from src.insurance_fraud.constant.training_pipeline import *
 from src.insurance_fraud.constant.database import *
+from src.insurance_fraud.constant.s3_bucket import *

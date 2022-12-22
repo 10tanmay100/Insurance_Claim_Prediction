@@ -8,11 +8,13 @@ from src.insurance_fraud.components.model_trainer import ModelTrainer
 from src.insurance_fraud.components.model_evaluation import ModelEvaluation
 from src.insurance_fraud.components.model_pusher import ModelPusher
 import sys
-
+from src.insurance_fraud.constant import *
+from src.insurance_fraud.cloud_storage.s3_syncer import S3Sync
 
 class TrainPipeline:
           def __init__(self,):
                     self.training_pipeline_config=TrainingPipelineConfig()
+                    self.s3_sync=S3Sync()
           def start_data_ingestion(self)->DataIngestionArtifact:
                     try:
                               logging.info("Staring data ingestion stage!!")
@@ -63,7 +65,7 @@ class TrainPipeline:
                               return model_evaluation_artifact
                               logging.info("model evaluation successful!!!!!!")
                     except Exception as e:
-                              raise InsuranceFraudException(e,sys) from e
+                              raise InsuranceFraudException(e,sys)
 
           def start_model_pusher(self,model_eval_artifact:ModelEvaluationArtifact):
                     try:
@@ -75,6 +77,19 @@ class TrainPipeline:
                               logging.info("Model pusher step finished")
                     except Exception as e:
                               raise InsuranceFraudException(e,sys)
+          def sync_artifact_dir_to_s3(self):
+                    try:
+                              aws_bucket_url=f"s3://{TRAINING_BUCKET_NAME}/artifact/{self.training_pipeline_config.timestamp}"
+                              self.s3_sync.sync_folder_to_s3(folder=self.training_pipeline_config.artifact_dir,aws_bucket_url=aws_bucket_url)
+                    except Exception as e:
+                              raise InsuranceFraudException(e,sys)
+          
+          def sync_saved_model_dir_to_s3(self):
+                    try:
+                              aws_bucket_url=f"s3://{TRAINING_BUCKET_NAME}/{SAVED_MODEL_DIR}"
+                              self.s3_sync.sync_folder_to_s3(folder=SAVED_MODEL_DIR,aws_bucket_url=aws_bucket_url)
+                    except Exception as e:
+                              raise InsuranceFraudException(e,sys)
 
           def run_pipeline(self):
                     try:
@@ -84,9 +99,12 @@ class TrainPipeline:
                               model_trainer_artifact=self.start_model_trainer(data_transformation_artifact)
                               model_evaluator_artifact=self.start_model_evaluation(data_transformation_artifact=data_transformation_artifact,model_trainer_artifact=model_trainer_artifact)
                               model_pusher_artifact=self.start_model_pusher(model_evaluator_artifact)
-                              return model_pusher_artifact
+                              self.sync_artifact_dir_to_s3()
+                              self.sync_saved_model_dir_to_s3()
+                              return "Aws Received Data Correctly!!"
                     except Exception as e:
-                              raise InsuranceFraudException(e,sys) from e
+                              self.sync_artifact_dir_to_s3()
+                              raise InsuranceFraudException(e,sys)
 
 
 

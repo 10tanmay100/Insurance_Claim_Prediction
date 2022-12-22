@@ -15,7 +15,7 @@ def get_install_requirements_file()->List[str]:
 
 setup(
           name="insurance_fraud",
-          version="0.0.2",
+          version="0.0.3",
           author="Tanmay Chakraborty",
           author_email="chakrabortytanmay744@gmail.com",
           packages=find_packages("insurance_fraud"),
