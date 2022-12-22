@@ -101,7 +101,7 @@ class TrainPipeline:
                               model_pusher_artifact=self.start_model_pusher(model_evaluator_artifact)
                               self.sync_artifact_dir_to_s3()
                               self.sync_saved_model_dir_to_s3()
-                              return "Aws Received Data Correctly!!"
+                              return model_pusher_artifact
                     except Exception as e:
                               self.sync_artifact_dir_to_s3()
                               raise InsuranceFraudException(e,sys)

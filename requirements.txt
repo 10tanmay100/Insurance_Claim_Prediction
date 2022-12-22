@@ -13,7 +13,7 @@ uvicorn
 python-multipart
 flask
 flask-cors
-
+awscli
 
 
 ## Dev Requirements
