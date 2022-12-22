@@ -1,4 +1,4 @@
-# Insurance_Fraud_Prediction
+# Insurance_Claim_Prediction
 
 
 It is **Hackathon** problem statement arranged by **Analytics Vidhya**
